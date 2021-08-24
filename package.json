@@ -1,12 +1,8 @@
 {
   "name": "floppacz",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Discord Sending Pics Bot",
   "main": "floppacz.bot.js",
-  "dependencies": {
-    "discord.js": "^12.5.3"
-  },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,5 +11,8 @@
     "bot",
     "discord-js"
   ],
-  "author": "Mozarella 2D#1226"
+  "author": "Mozarella 2D#1226",
+  "dependencies": {
+    "discord.js": "^13.1.0"
+  }
 }
