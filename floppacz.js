@@ -1,4 +1,4 @@
-const { Client, Intents, MessageEmbed } = require('discord.js');
+const { Client, Intents, MessageEmbed, Permissions } = require('discord.js');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES,] });
 
 
@@ -9,54 +9,59 @@ var files = fs.readdirSync('./floppa/');
 
 
 client.on('ready', () => {
-  client.user.setStatus('idle') //You can set idle, dnd or invisible
+  client.user.setStatus('online') //You can set idle, dnd or invisible
   client.user.setActivity("use floppa to get a image!",  { type: 'PLAYING' }) // PLAYING , LISTENING , WATCHING , STREAMING
   console.log("on discord lol");
 });
 
-// const { AutoPoster } = require('topgg-autoposter')
+/*
 
-// const poster = AutoPoster('TOPGGTOKEN', client) // tells topgg amount of servers ur bot is in, not required
+ const { AutoPoster } = require('topgg-autoposter')
 
-// optional
-// poster.on('posted', (stats) => { // ran when succesfully posted
-// console.log(`Posted stats to Top.gg | ${stats.serverCount} servers`)
-// })
+ const poster = AutoPoster('topggtoke', client) // tells topgg amount of servers ur bot is in 
+
+ // optional
+ poster.on('posted', (stats) => { // ran when succesfully posted
+  console.log(`Posted stats to Top.gg | ${stats.serverCount} servers`)
+})
+*/
 
 
-client.on('message', msg => {
-    if (msg.content === 'floppa') {
+ client.on('message', msg => {
+    if (msg.content === 'floppa')
+    if (msg.guild && msg.channel.permissionsFor(msg.guild.me).has("SEND_MESSAGES"))
+    if (msg.guild && msg.channel.permissionsFor(msg.guild.me).has("ATTACH_FILES")) {
+    
         imageNumber = files[Math.floor(Math.random()*files.length)]
         msg.channel.send ( {files: ["./floppa/" + imageNumber]} )
-// finds a random image in a folder
-
-        var now = new Date();
-// convert date to a string in UTC timezone format:
-console.log(now.toLocaleTimeString());
-// Output: 22:44:34
     }
-
-  });
- 
-  client.on('message', message => {
-    if (message.mentions.has(client.user)) {
-        message.channel.send('You can use get help by saying "floppa help" in the chat :wink:');
+        
+// finds a random image in a folder
+   });
+  client.on('message', msg=> {
+    if (msg.mentions.has(client.user))
+    if (msg.guild && msg.channel.permissionsFor(msg.guild.me).has("SEND_MESSAGES")) {
+        msg.channel.send('You can use get help by saying "floppa help" in the chat :wink:');
     }
 });
 
-//sends a little message when pinged just to help people :)
 
-client.on('message', message => {
-  if (message.content === 'floppa ping') {  
-    message.channel.send(`🏓Latency is ${Date.now() - message.createdTimestamp}ms. API Latency is ${Math.round(client.ws.ping)}ms`);
+//sends a little message when pinged
+
+client.on('message', msg=> {
+  if (msg.content === 'floppa ping') 
+  if (msg.guild && msg.channel.permissionsFor(msg.guild.me).has("SEND_MESSAGES")) {  
+    msg.channel.send(`🏓Latency is ${Date.now() - msg.createdTimestamp}ms. API Latency is ${Math.round(client.ws.ping)}ms`);
   }
 });
 
 // just a ping command 
 
-client.on('message', message => {
-  if (message.content === 'floppa help') {
-    message.channel.send({ embeds: [helpEmbed] });
+
+client.on('message', msg=> {
+  if (msg.content === 'floppa help')
+  if (msg.guild && msg.channel.permissionsFor(msg.guild.me).has("SEND_MESSAGES")) {
+    msg.channel.send({ embeds: [helpEmbed] });
   }
 });
 
@@ -69,8 +74,9 @@ const helpEmbed = new MessageEmbed()
 
 // the embed itself
 
-client.on('message', message => {
-  if (message.content === 'floppa fact') {
+client.on('message', msg=> {
+  if (msg.content === 'floppa fact')
+  if (msg.guild && msg.channel.permissionsFor(msg.guild.me).has("SEND_MESSAGES")) {
 
 let facts = [
   "Caracal can reach 35 to 39 inches in length and 35 to 40 pounds in weight. Males are slightly larger than females.",
@@ -98,10 +104,10 @@ let facts = [
 const randomFact = Math.floor(Math.random() * facts.length);
 //find a random line and sends it
 
-message.channel.send(facts[randomFact]+" <:happyfloppa:878019249296261161>");
+msg.channel.send(facts[randomFact]+" <:happyfloppa:878019249296261161>");
 }
-//sends the message with the fact plus adds an emote to every message to make it a little more itneresting idk what am I doing 
+//sends the message with the fact plus adds an emote to every msgto make it a little more itneresting idk what am I doing 
 });
 
 
-client.login ('TOKEN');
+client.login ('token');
