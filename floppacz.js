@@ -44,7 +44,7 @@ console.log(now.toLocaleTimeString());
     }
 });
 
-//sends a little message when pinged
+//sends a little message when pinged just to help people :)
 
 client.on('message', message => {
   if (message.content === 'floppa ping') {  
