@@ -14,17 +14,17 @@ client.on('ready', () => {
   console.log("on discord lol");
 });
 
-/*
+const { AutoPoster } = require('topgg-autoposter')
 
- const { AutoPoster } = require('topgg-autoposter')
+const ap = AutoPoster('topgg token', client)
 
- const poster = AutoPoster('topggtoke', client) // tells topgg amount of servers ur bot is in 
-
- // optional
- poster.on('posted', (stats) => { // ran when succesfully posted
-  console.log(`Posted stats to Top.gg | ${stats.serverCount} servers`)
+ap.on('posted', () => {
+  console.log(`Posted stats to Top.gg!`)
 })
-*/
+
+
+
+
 
 
  client.on('message', msg => {
@@ -33,7 +33,7 @@ client.on('ready', () => {
     if (msg.guild && msg.channel.permissionsFor(msg.guild.me).has("ATTACH_FILES")) {
     
         imageNumber = files[Math.floor(Math.random()*files.length)]
-        msg.channel.send ( {files: ["./floppa/" + imageNumber]} )
+        msg.channel.send ( {files: ["./floppa/" + imageNumber]} ).catch(err => console.log(err));
     }
         
 // finds a random image in a folder
@@ -41,7 +41,7 @@ client.on('ready', () => {
   client.on('message', msg=> {
     if (msg.mentions.has(client.user))
     if (msg.guild && msg.channel.permissionsFor(msg.guild.me).has("SEND_MESSAGES")) {
-        msg.channel.send('You can use get help by saying "floppa help" in the chat :wink:');
+        msg.channel.send('You can use get help by saying "floppa help" in the chat :wink:').catch(err => console.log(err));
     }
 });
 
@@ -51,7 +51,7 @@ client.on('ready', () => {
 client.on('message', msg=> {
   if (msg.content === 'floppa ping') 
   if (msg.guild && msg.channel.permissionsFor(msg.guild.me).has("SEND_MESSAGES")) {  
-    msg.channel.send(`🏓Latency is ${Date.now() - msg.createdTimestamp}ms. API Latency is ${Math.round(client.ws.ping)}ms`);
+    msg.channel.send(`🏓Latency is ${Date.now() - msg.createdTimestamp}ms. API Latency is ${Math.round(client.ws.ping)}ms`).catch(err => console.log(err));
   }
 });
 
@@ -61,9 +61,19 @@ client.on('message', msg=> {
 client.on('message', msg=> {
   if (msg.content === 'floppa help')
   if (msg.guild && msg.channel.permissionsFor(msg.guild.me).has("SEND_MESSAGES")) {
-    msg.channel.send({ embeds: [helpEmbed] });
+    msg.channel.send({ embeds: [helpEmbed] }).catch(err => console.log(err));
   }
 });
+
+client.on('message', msg=> {
+  if (msg.content === 'oakham sam')
+  if (msg.guild && msg.channel.permissionsFor(msg.guild.me).has("SEND_MESSAGES"))
+  if (msg.guild && msg.channel.permissionsFor(msg.guild.me).has("EMBED_LINKS")) {
+    msg.channel.send("https://cdn.discordapp.com/attachments/779194094332936193/888176144925474846/E_XPP63WQAUU2Nx.png").catch(err => console.log(err));
+  }
+});
+
+//little easteregg a guy named Matthew64#4870 wanted me to add
 
 //sends an embed of commands after typing floppa help
   
@@ -104,10 +114,15 @@ let facts = [
 const randomFact = Math.floor(Math.random() * facts.length);
 //find a random line and sends it
 
-msg.channel.send(facts[randomFact]+" <:happyfloppa:878019249296261161>");
+msg.channel.send(facts[randomFact]+" <:happyfloppa:878019249296261161>").catch(err => console.log(err));
 }
 //sends the message with the fact plus adds an emote to every msgto make it a little more itneresting idk what am I doing 
 });
+/*
+client.on('message', msg=> {
+  if (msg.content === 'test error')
+    msg.channel.send("cum").catch(err => console.log(err));
+});
+*/
 
-
-client.login ('token');
+client.login ('bot token');
