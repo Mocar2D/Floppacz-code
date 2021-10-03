@@ -12,64 +12,65 @@ client.on('ready', () => {
   client.user.setStatus('online') //You can set idle, dnd or invisible
   client.user.setActivity("use floppa to get a image!",  { type: 'PLAYING' }) // PLAYING , LISTENING , WATCHING , STREAMING
   console.log("on discord lol");
+  console.log(client.guilds.cache.size)
 });
-
+/*
 const { AutoPoster } = require('topgg-autoposter')
 
-const ap = AutoPoster('topgg token', client)
+const ap = AutoPoster('topggtoken', client)
 
 ap.on('posted', () => {
   console.log(`Posted stats to Top.gg!`)
 })
 
+*/
 
 
 
 
-
- client.on('message', msg => {
-    if (msg.content === 'floppa')
-    if (msg.guild && msg.channel.permissionsFor(msg.guild.me).has("SEND_MESSAGES"))
-    if (msg.guild && msg.channel.permissionsFor(msg.guild.me).has("ATTACH_FILES")) {
+  client.on("messageCreate", message=> {
+    if (message.content === 'floppa')
+    if (message.guild && message.channel.permissionsFor(message.guild.me).has("SEND_MESSAGES"))
+    if (message.guild && message.channel.permissionsFor(message.guild.me).has("ATTACH_FILES")) {
     
         imageNumber = files[Math.floor(Math.random()*files.length)]
-        msg.channel.send ( {files: ["./floppa/" + imageNumber]} ).catch(err => console.log(err));
+        message.channel.send ( {files: ["./floppa/" + imageNumber]} ).catch(err => console.log(err));
     }
         
 // finds a random image in a folder
    });
-  client.on('message', msg=> {
-    if (msg.mentions.has(client.user))
-    if (msg.guild && msg.channel.permissionsFor(msg.guild.me).has("SEND_MESSAGES")) {
-        msg.channel.send('You can use get help by saying "floppa help" in the chat :wink:').catch(err => console.log(err));
+  client.on("messageCreate", message=> {
+    if (message.mentions.has(client.user))
+    if (message.guild && message.channel.permissionsFor(message.guild.me).has("SEND_MESSAGES")) {
+        message.channel.send('You can use get help by saying "floppa help" in the chat :wink:').catch(err => console.log(err));
     }
 });
 
 
 //sends a little message when pinged
 
-client.on('message', msg=> {
-  if (msg.content === 'floppa ping') 
-  if (msg.guild && msg.channel.permissionsFor(msg.guild.me).has("SEND_MESSAGES")) {  
-    msg.channel.send(`🏓Latency is ${Date.now() - msg.createdTimestamp}ms. API Latency is ${Math.round(client.ws.ping)}ms`).catch(err => console.log(err));
+client.on("messageCreate", message=> {
+  if (message.content === 'floppa ping') 
+  if (message.guild && message.channel.permissionsFor(message.guild.me).has("SEND_MESSAGES")) {  
+    message.channel.send(`🏓Latency is ${Date.now() - message.createdTimestamp}ms. API Latency is ${Math.round(client.ws.ping)}ms`).catch(err => console.log(err));
   }
 });
 
 // just a ping command 
 
 
-client.on('message', msg=> {
-  if (msg.content === 'floppa help')
-  if (msg.guild && msg.channel.permissionsFor(msg.guild.me).has("SEND_MESSAGES")) {
-    msg.channel.send({ embeds: [helpEmbed] }).catch(err => console.log(err));
+client.on("messageCreate", message=> {
+  if (message.content === 'floppa help')
+  if (message.guild && message.channel.permissionsFor(message.guild.me).has("SEND_MESSAGES")) {
+    message.channel.send({ embeds: [helpEmbed] }).catch(err => console.log(err));
   }
 });
 
-client.on('message', msg=> {
-  if (msg.content === 'oakham sam')
-  if (msg.guild && msg.channel.permissionsFor(msg.guild.me).has("SEND_MESSAGES"))
-  if (msg.guild && msg.channel.permissionsFor(msg.guild.me).has("EMBED_LINKS")) {
-    msg.channel.send("https://cdn.discordapp.com/attachments/779194094332936193/888176144925474846/E_XPP63WQAUU2Nx.png").catch(err => console.log(err));
+client.on("messageCreate", message=> {
+  if (message.content === 'oakham sam')
+  if (message.guild && message.channel.permissionsFor(message.guild.me).has("SEND_MESSAGES"))
+  if (message.guild && message.channel.permissionsFor(message.guild.me).has("EMBED_LINKS")) {
+    message.channel.send("https://cdn.discordapp.com/attachments/779194094332936193/888176144925474846/E_XPP63WQAUU2Nx.png").catch(err => console.log(err));
   }
 });
 
@@ -84,9 +85,9 @@ const helpEmbed = new MessageEmbed()
 
 // the embed itself
 
-client.on('message', msg=> {
-  if (msg.content === 'floppa fact')
-  if (msg.guild && msg.channel.permissionsFor(msg.guild.me).has("SEND_MESSAGES")) {
+client.on("messageCreate", message=> {
+  if (message.content === 'floppa fact')
+  if (message.guild && message.channel.permissionsFor(message.guild.me).has("SEND_MESSAGES")) {
 
 let facts = [
   "Caracal can reach 35 to 39 inches in length and 35 to 40 pounds in weight. Males are slightly larger than females.",
@@ -114,15 +115,29 @@ let facts = [
 const randomFact = Math.floor(Math.random() * facts.length);
 //find a random line and sends it
 
-msg.channel.send(facts[randomFact]+" <:happyfloppa:878019249296261161>").catch(err => console.log(err));
+message.channel.send(facts[randomFact]+" <:happyfloppa:878019249296261161>").catch(err => console.log(err));
 }
-//sends the message with the fact plus adds an emote to every msgto make it a little more itneresting idk what am I doing 
+//sends the message with the fact plus adds an emote to every messageto make it a little more itneresting idk what am I doing 
 });
-/*
-client.on('message', msg=> {
-  if (msg.content === 'test error')
-    msg.channel.send("cum").catch(err => console.log(err));
+
+client.on("messageCreate", message=> {
+  if (message.content === 'cum')
+    message.channel.send("cum").catch(err => console.log(err));
 });
-*/
+
+const trollface = "troll";
+client.on("messageCreate", message=> {
+  if (message.content.includes(trollface))
+  if(message.guild.id === "779188280033411103")
+  if (message.guild && message.channel.permissionsFor(message.guild.me).has("SEND_MESSAGES"))
+  if (message.guild && message.channel.permissionsFor(message.guild.me).has("ATTACH_FILES")) {
+    message.channel.send ( {files: ["./floppa/troll_face.mp4"]} ).catch(err => console.log(err));
+            
+var now = new Date();
+// convert date to a string in UTC timezone format:
+console.log("someone got trolld" + now.toLocaleTimeString());
+// Output: 22:44:34
+  }
+});
 
 client.login ('bot token');
