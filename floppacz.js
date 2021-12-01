@@ -117,13 +117,9 @@ const randomFact = Math.floor(Math.random() * facts.length);
 
 message.channel.send(facts[randomFact]+" <:happyfloppa:878019249296261161>").catch(err => console.log(err));
 }
-//sends the message with the fact plus adds an emote to every messageto make it a little more itneresting idk what am I doing 
+//sends the message with the fact plus adds an emote to every message to make it a little more itneresting idk what am I doing 
 });
 
-client.on("messageCreate", message=> {
-  if (message.content === 'cum')
-    message.channel.send("cum").catch(err => console.log(err));
-});
 
 const trollface = "troll";
 client.on("messageCreate", message=> {
